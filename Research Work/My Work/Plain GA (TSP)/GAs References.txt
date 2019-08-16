@@ -1,0 +1,10 @@
+https://gist.github.com/turbofart/3428880
+
+https://towardsdatascience.com/evolution-of-a-salesman-a-complete-genetic-algorithm-tutorial-for-python-6fe5d2b3ca35
+
+https://github.com/lccasagrande/TSP-GA
+
+https://medium.com/@pasdan/genetic-algorithm-the-travelling-salesman-problem-via-python-deap-f238e0dd1a73
+
+https://codereview.stackexchange.com/questions/143643/traveling-salesman-problem-genetic-algorithm
+
