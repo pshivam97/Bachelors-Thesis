@@ -1,0 +1,11 @@
+https://pythonhealthcare.org/2019/01/17/117-genetic-algorithms-2-a-multiple-objective-genetic-algorithm-nsga-ii/
+
+https://github.com/ChengHust/NSGA-II
+
+https://github.com/haris989/NSGA-II
+
+https://github.com/msu-coinlab/pymoo
+
+https://pythonhealthcare.org/2019/01/17/117-code-only-genetic-algorithms-2-a-multiple-objective-genetic-algorithm-nsga-ii/
+
+http://www.cleveralgorithms.com/nature-inspired/evolution/nsga.html
