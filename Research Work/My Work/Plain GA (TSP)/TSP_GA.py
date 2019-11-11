@@ -1,4 +1,4 @@
-# TAKEN FROM  :  https://gist.github.com/turbofart/3428880
+ # TAKEN FROM  :  https://gist.github.com/turbofart/3428880
 
 import math
 import random
@@ -218,6 +218,7 @@ class GA:
          elitismOffset = 1
 
       for i in range(elitismOffset, newPopulation.populationSize()):
+
          if FitnessProportionate :
             parent1 = self.fitnessProportionateSelection(pop)
             parent2 = self.fitnessProportionateSelection(pop)
@@ -246,7 +247,7 @@ class GA:
       endPos = int(random.random() * parent1.tourSize())
 
       for i in range(0, child.tourSize()):
-         if startPos < endPos and i > startPos and i < endPos:
+         if startPos < endPos and i > startPos and i < endPos :
             child.setCity(i, parent1.getCity(i))
          elif startPos > endPos:
             if not (i < startPos and i > endPos):
