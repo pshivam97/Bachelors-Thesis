@@ -72,47 +72,47 @@ def crowding_distance(Obj_values1, Obj_values2, data_space, front):
 
     # Calculating crowding distance in Objective Space
 
-    # front_values1 = []
-    # front_values2 = []
+    front_values1 = []
+    front_values2 = []
 
-    # for i in front :
-    #     front_values1.append(Obj_values1[i])
-    #     front_values2.append(Obj_values2[i])
+    for i in front :
+        front_values1.append(Obj_values1[i])
+        front_values2.append(Obj_values2[i])
 
-    # sorted1 = sort_by_values(front, front_values1[:])
-    # sorted2 = sort_by_values(front, front_values2[:])
+    sorted1 = sort_by_values(front, front_values1[:])
+    sorted2 = sort_by_values(front, front_values2[:])
 
-    # distance1 = [0 for i in range(len(front))]
-    # distance2 = [0 for i in range(len(front))]
-    # distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
-    # distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
+    distance1 = [0 for i in range(len(front))]
+    distance2 = [0 for i in range(len(front))]
+    distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
+    distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
 
 
-    # for k in range(1,len(front)-1) :
-    #     distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
-    #     distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
+    for k in range(1,len(front)-1) :
+        distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
+        distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
 
-    # for k in range(len(front)):
-    #     distance[k] = distance1[k] + distance2[k]
+    for k in range(len(front)):
+        distance[k] = distance1[k] + distance2[k]
 
     # Calculating crowding distance in Data Space
 
-    data_values = []
-    for i in front :
-        data_values.append(data_space[i])
+    # data_values = []
+    # for i in front :
+    #     data_values.append(data_space[i])
+    #
+    # sorted3 = sort_by_values(front, data_values[:])
+    # distance3 = [0 for i in range(len(front))]
+    # distance3[sorted3[0]] = distance3[sorted3[len(front)-1]] = 4444444444444444
+    #
+    # for k in range(1,len(front)-1) :
+    #     distance3[sorted3[k]] = (data_values[sorted3[k+1]] - data_values[sorted3[k-1]])/(max(data_values) - min(data_values) + 1)
 
-    sorted3 = sort_by_values(front, data_values[:])
-    distance3 = [0 for i in range(len(front))]
-    distance3[sorted3[0]] = distance3[sorted3[len(front)-1]] = 4444444444444444
-
-    for k in range(1,len(front)-1) :
-        distance3[sorted3[k]] = (data_values[sorted3[k+1]] - data_values[sorted3[k-1]])/(max(data_values) - min(data_values) + 1)
-
-    for k in range(len(front)):
-        distance[k] = distance3[k]
+    # for k in range(len(front)):
+    #     distance[k] = distance3[k]
 
     # Calculating the crowding distance in both Objective and Data Space
-
+    #
     # for k in range(len(front)):
     #     distance[k] = distance1[k] + distance2[k] + distance3[k]
 
@@ -194,7 +194,7 @@ if __name__ == '__main__' :
 
     #######################    Main program starts here   #########################
     pop_size = 40
-    max_gen = 15
+    max_gen = 200
     mutationRate = 0.2
     rank = [0 for i in range(pop_size)]
     run_of_algorithm = 5
@@ -371,12 +371,14 @@ if __name__ == '__main__' :
     plt.ylabel('(x-2)^2', fontsize=15)
     plt.scatter(function1_values, function2_values)
     plt.grid()
-    plt.show()
+    # plt.show()
+    plt.savefig("O.png")
 
     f2 = plt.figure(figsize=(6.4,2))
     plt.plot(population,[0 for i in range(pop_size)],'x')
     plt.grid()
-    plt.show()
+    # plt.show()
+    plt.savefig("D.png")
 
     # f3 = plt.figure(figsize=(12,7))
     # ax = f3.add_subplot(111)
