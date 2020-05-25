@@ -72,44 +72,44 @@ def crowding_distance(Obj_values1, Obj_values2, data_space, front):
 
     # Calculating crowding distance in Objective Space
 
-    front_values1 = []
-    front_values2 = []
+    # front_values1 = []
+    # front_values2 = []
 
-    for i in front :
-        front_values1.append(Obj_values1[i])
-        front_values2.append(Obj_values2[i])
+    # for i in front :
+    #     front_values1.append(Obj_values1[i])
+    #     front_values2.append(Obj_values2[i])
 
-    sorted1 = sort_by_values(front, front_values1[:])
-    sorted2 = sort_by_values(front, front_values2[:])
+    # sorted1 = sort_by_values(front, front_values1[:])
+    # sorted2 = sort_by_values(front, front_values2[:])
 
-    distance1 = [0 for i in range(len(front))]
-    distance2 = [0 for i in range(len(front))]
-    distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
-    distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
+    # distance1 = [0 for i in range(len(front))]
+    # distance2 = [0 for i in range(len(front))]
+    # distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
+    # distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
 
 
-    for k in range(1,len(front)-1) :
-        distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
-        distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
+    # for k in range(1,len(front)-1) :
+    #     distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
+    #     distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
 
-    for k in range(len(front)):
-        distance[k] = distance1[k] + distance2[k]
+    # for k in range(len(front)):
+    #     distance[k] = distance1[k] + distance2[k]
 
     # Calculating crowding distance in Data Space
 
-    # data_values = []
-    # for i in front :
-    #     data_values.append(data_space[i])
+    data_values = []
+    for i in front :
+        data_values.append(data_space[i])
 
-    # sorted3 = sort_by_values(front, data_values[:])
-    # distance3 = [0 for i in range(len(front))]
-    # distance3[sorted3[0]] = distance3[sorted3[len(front)-1]] = 4444444444444444
+    sorted3 = sort_by_values(front, data_values[:])
+    distance3 = [0 for i in range(len(front))]
+    distance3[sorted3[0]] = distance3[sorted3[len(front)-1]] = 4444444444444444
 
-    # for k in range(1,len(front)-1) :
-    #     distance3[sorted3[k]] = (data_values[sorted3[k+1]] - data_values[sorted3[k-1]])/(max(data_values) - min(data_values) + 1)
+    for k in range(1,len(front)-1) :
+        distance3[sorted3[k]] = (data_values[sorted3[k+1]] - data_values[sorted3[k-1]])/(max(data_values) - min(data_values) + 1)
 
-    # for k in range(len(front)):
-        # distance[k] = distance3[k]
+    for k in range(len(front)):
+        distance[k] = distance3[k]
 
     # Calculating the crowding distance in both Objective and Data Space
 
@@ -194,7 +194,7 @@ if __name__ == '__main__' :
 
     #######################    Main program starts here   #########################
     pop_size = 40
-    max_gen = 200
+    max_gen = 15
     mutationRate = 0.2
     rank = [0 for i in range(pop_size)]
     run_of_algorithm = 5
@@ -327,6 +327,8 @@ if __name__ == '__main__' :
         population = P_t
         function1_values = [function1(population[i]) for i in range(pop_size)]
         function2_values = [function2(population[i]) for i in range(pop_size)]
+
+        # Calculating the Diversity Metric in Objective Space
         sorted_list = sort_by_values(population,function1_values[:])
         d_i = []
 
@@ -338,16 +340,29 @@ if __name__ == '__main__' :
         average_euclidean_distance_obj_space = sum(d_i)/(pop_size-1)
         mean_dev_d_i = [abs(x-average_euclidean_distance_obj_space) for x in d_i]
         diversity_metric_obj_space = (d_l + d_f + sum(mean_dev_d_i))/(d_l + d_f + (pop_size-1)*average_euclidean_distance_obj_space)
-        print(diversity_metric_obj_space)
         average_diversity_metric_objective_space += diversity_metric_obj_space
 
+        # Calculating the Diversity Metric in Data Space Space
+        dataSpace = copy.deepcopy(population)
+        sorted_list2 = sort_by_values(population,dataSpace[:])
+        dist_i = []
+
+        for i in range(pop_size-1) :
+            X_diff = dataSpace[sorted_list[i]] - dataSpace[sorted_list[i+1]]
+            dist_i.append(abs(X_diff))
+
+        average_euclidean_distance_data_space = sum(dist_i)/(pop_size-1)
+        mean_dev_dist_i = [abs(x-average_euclidean_distance_data_space) for x in dist_i]
+        diversity_metric_data_space = (d_l + d_f + sum(mean_dev_dist_i))/(d_l + d_f + (pop_size-1)*average_euclidean_distance_data_space)
+        average_diversity_metric_data_space += diversity_metric_data_space
         # print("FINAL SOLUTION : \n",population,"\n\n",max(population),"  ",min(population))
 
     average_diversity_metric_objective_space = average_diversity_metric_objective_space/run_of_algorithm
-    # average_diversity_metric_data_space = average_diversity_metric_data_space/run_of_algorithm
+    average_diversity_metric_data_space = average_diversity_metric_data_space/run_of_algorithm
 
     print("Average Diversity Metric Obj Space:",average_diversity_metric_objective_space)
-    c = input("fdf")
+    print("Average Diversity Metric Data Space:",average_diversity_metric_data_space)
+
     function1_values = [function1(population[i]) for i in range(0,pop_size)]
     function2_values = [function2(population[i]) for i in range(0,pop_size)]
 
