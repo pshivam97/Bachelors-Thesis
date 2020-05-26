@@ -242,7 +242,7 @@ if __name__ == '__main__' :
 
     #######################    Main program starts here   #########################
     pop_size = 40
-    max_gen = 2000
+    max_gen = 200
     mutationRate = 0.2
     rank = [0 for i in range(pop_size)]
     run_of_algorithm = 5
