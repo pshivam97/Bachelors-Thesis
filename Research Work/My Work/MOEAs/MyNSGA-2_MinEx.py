@@ -72,72 +72,58 @@ def crowding_distance(Obj_values1, Obj_values2, data_space, front):
 
     # Calculating crowding distance in Objective Space
 
-    # front_values1 = []
-    # front_values2 = []
-    #
-    # for i in front :
-    #     front_values1.append(Obj_values1[i])
-    #     front_values2.append(Obj_values2[i])
-    #
-    # sorted1 = sort_by_values(front, front_values1[:])
-    # sorted2 = sort_by_values(front, front_values2[:])
-    #
-    # distance1 = [0 for i in range(len(front))]
-    # distance2 = [0 for i in range(len(front))]
-    # distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
-    # distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
-    #
-    #
-    # for k in range(1,len(front)-1) :
-    #     distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
-    #     distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
-    # #
-    # for k in range(len(front)):
-    #     distance[k] = distance1[k] + distance2[k]
-
-    # Calculating crowding distance in Data Space -----------------------------------------------------------------
-    data_values1 = []
-    data_values2 = []
+    front_values1 = []
+    front_values2 = []
 
     for i in front :
-        data_values1.append(data_space[i][0])
-        data_values2.append(data_space[i][1])
+        front_values1.append(Obj_values1[i])
+        front_values2.append(Obj_values2[i])
 
-    sorted3 = sort_by_values(front, data_values1[:])
-    sorted4 = sort_by_values(front, data_values2[:])
+    sorted1 = sort_by_values(front, front_values1[:])
+    sorted2 = sort_by_values(front, front_values2[:])
 
-    distance3 = [0 for i in range(len(front))]
-    distance4 = [0 for i in range(len(front))]
-
-    distance3[sorted3[0]] = 4444444444444444  ### BIG NUMBER
-    distance3[sorted3[len(front)-1]] = 4444444444444444  ### BIG NUMBER
-    distance4[sorted4[0]] = 4444444444444444  ### BIG NUMBER
-    distance4[sorted4[len(front)-1]] = 4444444444444444  ### BIG NUMBER
+    distance1 = [0 for i in range(len(front))]
+    distance2 = [0 for i in range(len(front))]
+    distance1[sorted1[0]] = 4444444444444444  ### BIG NUMBER
+    distance2[sorted2[0]] = 4444444444444444  ### BIG NUMBER
 
 
     for k in range(1,len(front)-1) :
-        distance3[sorted3[k]] = (data_values1[sorted3[k+1]] - data_values1[sorted3[k-1]])/(max(data_values1)-min(data_values1) + 1)
-        distance4[sorted4[k]] = (data_values2[sorted4[k+1]] - data_values2[sorted4[k-1]])/(max(data_values2)-min(data_values2) + 1)
-
+        distance1[sorted1[k]] = (front_values1[sorted1[k+1]] - front_values1[sorted1[k-1]])/(max(front_values1)-min(front_values1) + 1)
+        distance2[sorted2[k]] = (front_values2[sorted2[k+1]] - front_values2[sorted2[k-1]])/(max(front_values2)-min(front_values2) + 1)
+    # #
     for k in range(len(front)):
-        distance[k] = distance3[k] + distance4[k]
+        distance[k] = distance1[k] + distance2[k]
 
-    # data_values = []
-    # for i in front :
-    #     data_values.append(data_space[i])
+    # Calculating crowding distance in Data Space -----------------------------------------------------------------
+    # data_values1 = []
+    # data_values2 = []
     #
-    # sorted3 = sort_by_values(front, data_values[:])
+    # for i in front :
+    #     data_values1.append(data_space[i][0])
+    #     data_values2.append(data_space[i][1])
+    #
+    # sorted3 = sort_by_values(front, data_values1[:])
+    # sorted4 = sort_by_values(front, data_values2[:])
+    #
     # distance3 = [0 for i in range(len(front))]
-    # distance3[sorted3[0]] = distance3[sorted3[len(front)-1]] = 4444444444444444
+    # distance4 = [0 for i in range(len(front))]
+    #
+    # distance3[sorted3[0]] = 4444444444444444  ### BIG NUMBER
+    # distance3[sorted3[len(front)-1]] = 4444444444444444  ### BIG NUMBER
+    # distance4[sorted4[0]] = 4444444444444444  ### BIG NUMBER
+    # distance4[sorted4[len(front)-1]] = 4444444444444444  ### BIG NUMBER
+    #
     #
     # for k in range(1,len(front)-1) :
-    #     distance3[sorted3[k]] = (data_values[sorted3[k+1]] - data_values[sorted3[k-1]])/(max(data_values) - min(data_values) + 1)
-    #
+    #     distance3[sorted3[k]] = (data_values1[sorted3[k+1]] - data_values1[sorted3[k-1]])/(max(data_values1)-min(data_values1) + 1)
+    #     distance4[sorted4[k]] = (data_values2[sorted4[k+1]] - data_values2[sorted4[k-1]])/(max(data_values2)-min(data_values2) + 1)
+
     # for k in range(len(front)):
-    #     distance[k] = distance3[k]
-    #
+    #     distance[k] = distance3[k] + distance4[k]
+
     # Calculating the crowding distance in both Objective and Data Space
-    #
+
     # for k in range(len(front)):
     #     distance[k] = distance1[k] + distance2[k] + distance3[k] + distance4[k]
 
@@ -174,6 +160,7 @@ def crossover_and_mutation(p1,p2): # p1 is parent1 (a tuple of real numbers) | p
     # child2 = (child20,child21)
     child1 = (p1[0],p2[1])
     child2 = (p2[0],p1[1])
+
     (child1,child2) = mutation(child1,child2)
 
     return (child1,child2)
@@ -188,10 +175,26 @@ def mutation(c1,c2):
     if mutation_prob_1 < mutationRate :
         c_1[0] += (2*random.random() - 1)*(c_1[0]/100)
         c_1[1] += (2*random.random() - 1)*(c_1[1]/100)
+        if c_1[0] < 0.1 :
+            c_1[0] = 0.1
+        elif c_1[0] > 1 :
+            c_1[0] = 1
+        elif c_1[1] < 0 :
+            c_1[1] = 0
+        elif c_1[1] > 5 :
+            c_1[1] = 5
 
     if mutation_prob_2 < mutationRate :
         c_2[0] += (2*random.random() - 1)*(c_2[0]/100)
         c_2[1] += (2*random.random() - 1)*(c_2[1]/100)
+        if c_2[0] < 0.1 :
+            c_2[0] = 0.1
+        elif c_2[0] > 1 :
+            c_2[0] = 1
+        elif c_2[1] < 0 :
+            c_2[1] = 0
+        elif c_2[1] > 5 :
+            c_2[1] = 5
 
     c1 = tuple(c_1)
     c2 = tuple(c_2)
@@ -239,7 +242,7 @@ if __name__ == '__main__' :
 
     #######################    Main program starts here   #########################
     pop_size = 40
-    max_gen = 100
+    max_gen = 2000
     mutationRate = 0.2
     rank = [0 for i in range(pop_size)]
     run_of_algorithm = 5
@@ -253,7 +256,7 @@ if __name__ == '__main__' :
     d_f = 0
 
     for i in range(run_of_algorithm) :
-
+        print("Algorithm run no.",i+1)
         #Initialization
         population = [(random.uniform(min_x1,max_x1),random.uniform(min_x2,max_x2)) for i in range(pop_size)]
         # print(population)
@@ -341,6 +344,9 @@ if __name__ == '__main__' :
                 parent2 = binary_tournament_selection(fronts,previous_R_t,P_t,crowding_distance_values,rank,True)
 
                 (child1,child2) = crossover_and_mutation(P_t[parent1],P_t[parent2])
+                if child1[0] < 0.1 or child1[0] > 1 :
+                    print("Bounds Violated")
+
                 R_t.append(child1)
                 if len(R_t) == 2*pop_size :
                     break
